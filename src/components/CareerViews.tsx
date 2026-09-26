@@ -1,4 +1,6 @@
 import { resolveSideEvent } from '../domain/side-events';
+import { RememberButton, TrendsView, CorrectionPreview } from './CareerMemory';
+import { previously } from '../domain/career-memory';
 import {
   relationshipTier,
   relationshipTiers,
@@ -55,6 +57,7 @@ import { featuredStats, isDefense } from '../domain/position';
 
 export type Page =
   | 'hub'
+  | 'snapshot'
   | 'story'
   | 'games'
   | 'progression'
@@ -595,6 +598,14 @@ export function StoryView({
         description={story.subtitle}
       />
       <SideEvents career={c} onChange={onChange} />
+      {event && ['pressure', 'turn', 'finish'].includes(event.id) && (
+        <section className="panel memory-section">
+          <h3>Previously…</h3>
+          {previously(c).map((line, i) => (
+            <p key={i}>{line}</p>
+          ))}
+        </section>
+      )}
       <div className="story-track">
         {story.events.map((e, i) => (
           <div
@@ -718,6 +729,13 @@ export function StoryView({
                   <div className="eyebrow">{x.title}</div>
                   <h3>{x.choice}</h3>
                   <p>{x.outcome}</p>
+                  <RememberButton
+                    career={c}
+                    onChange={onChange}
+                    id={`choice-${x.eventId}`}
+                    title={x.title}
+                    body={`${x.choice}. ${x.outcome}\n\n${x.dialogue ?? ''}`}
+                  />
                   {x.dialogue && (
                     <details className="performance-evidence">
                       <summary>Read the conversation</summary>
@@ -933,6 +951,7 @@ export function GamesView({
       )}
       {!!c.recaps.length && (
         <>
+          <TrendsView career={c} />
           <div className="section-title">
             <h2>Game log</h2>
             <span className="muted">Corrections preserve resolved story history and rewards.</span>
@@ -966,7 +985,16 @@ export function GamesView({
                               : 'WK '}
                         {r.week}
                       </td>
-                      <td>{r.opponent}</td>
+                      <td>
+                        {r.opponent}
+                        {r.title && <small>{r.title}</small>}
+                        {r.note && (
+                          <details>
+                            <summary>Notes</summary>
+                            <p>{r.note}</p>
+                          </details>
+                        )}
+                      </td>
                       <td>
                         {r.participation === 'bye'
                           ? '—'
@@ -1003,6 +1031,13 @@ export function GamesView({
                         >
                           Edit
                         </button>
+                        <RememberButton
+                          career={c}
+                          onChange={onChange}
+                          id={`game-${r.id}`}
+                          title={r.title || `${r.phase} ${r.week} vs ${r.opponent}`}
+                          body={`${r.ownScore}–${r.opponentScore}. ${r.note}`}
+                        />
                       </td>
                     </tr>
                   ))}
@@ -1028,7 +1063,8 @@ function RecapForm({
   onCancel?: () => void;
 }) {
   const [r, setR] = useState(initial),
-    [error, setError] = useState('');
+    [error, setError] = useState(''),
+    [reviewed, setReviewed] = useState(false);
   const fields =
       c.player.position === 'PG'
         ? pgFields
@@ -1062,10 +1098,16 @@ function RecapForm({
         <span className="tag">{c.draft?.team}</span>
       </div>
       <form
+        onChange={() => setReviewed(false)}
         onSubmit={async (e) => {
           e.preventDefault();
           setError('');
           try {
+            if (editing && !reviewed) {
+              editRecap(c, r);
+              setReviewed(true);
+              return;
+            }
             await onSave(r);
           } catch (e) {
             setError(e instanceof Error ? e.message : 'Unable to save recap.');
@@ -1198,6 +1240,15 @@ function RecapForm({
           </p>
         )}
         <label>
+          Game title <span className="muted">(optional)</span>
+          <input
+            value={r.title ?? ''}
+            maxLength={80}
+            placeholder="The Lambeau Game, First Start, Revenge Game…"
+            onChange={(e) => setR({ ...r, title: e.target.value })}
+          />
+        </label>
+        <label>
           Your notes <span className="muted">(optional)</span>
           <textarea
             value={r.note}
@@ -1256,10 +1307,17 @@ function RecapForm({
             </button>
           )}
           <button className="button primary">
-            {editing ? 'Save correction' : bye ? 'Record bye week' : 'Save game recap'}
+            {editing
+              ? reviewed
+                ? 'Confirm correction'
+                : 'Save correction'
+              : bye
+                ? 'Record bye week'
+                : 'Save game recap'}
             <Check size={16} />
           </button>
         </div>
+        {editing && reviewed && <CorrectionPreview career={c} recap={r} />}
       </form>
     </section>
   );
@@ -1617,7 +1675,7 @@ export function RelationshipsView({
     </div>
   );
 }
-export function TimelineView({ career: c }: { career: Career }) {
+export function TimelineView({ career: c, onChange }: { career: Career; onChange: ChangeCareer }) {
   const [filter, setFilter] = useState('all');
   return (
     <div className="page-enter">
@@ -1638,6 +1696,26 @@ export function TimelineView({ career: c }: { career: Career }) {
           </button>
         ))}
       </div>
+      <section className="panel memory-section">
+        <h2>★ Remembered moments</h2>
+        {!c.moments.length && <p>Save a game, conversation, or record with “Remember this.”</p>}
+        {c.moments
+          .slice()
+          .reverse()
+          .map((m) => (
+            <article key={m.id} className="memory-section">
+              <h3>{m.title}</h3>
+              <p className="dialogue">{m.body}</p>
+              <RememberButton
+                career={c}
+                onChange={onChange}
+                id={m.id}
+                title={m.title}
+                body={m.body}
+              />
+            </article>
+          ))}
+      </section>
       <div className="timeline">
         {c.timeline
           .slice()
@@ -1659,8 +1737,16 @@ export function TimelineView({ career: c }: { career: Career }) {
                   <span className="eyebrow">{t.kind}</span>
                   <time>{new Date(t.at).toLocaleString()}</time>
                 </div>
-                <h3>{t.title}</h3>
+                <h3>{c.recaps.find((r) => r.id === t.sourceRecapId)?.title || t.title}</h3>
                 <p>{t.body}</p>
+                {t.sourceRecapId && <p>{c.recaps.find((r) => r.id === t.sourceRecapId)?.note}</p>}
+                <RememberButton
+                  career={c}
+                  onChange={onChange}
+                  id={`timeline-${t.id}`}
+                  title={t.title}
+                  body={t.body}
+                />
               </section>
             </article>
           ))}
@@ -1752,6 +1838,13 @@ function SideEvents({ career: c, onChange }: { career: Career; onChange: ChangeC
             .map((e) => (
               <section key={e.id}>
                 <h3>{e.title}</h3>
+                <RememberButton
+                  career={c}
+                  onChange={onChange}
+                  id={`side-${e.id}`}
+                  title={e.title}
+                  body={`${e.body}\n\n${e.choice ?? 'Skipped'} · ${e.outcome}`}
+                />
                 <p>{e.evidence}</p>
                 <p>
                   {e.choice ?? 'Skipped'} · {e.outcome}

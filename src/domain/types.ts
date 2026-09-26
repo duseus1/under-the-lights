@@ -135,6 +135,8 @@ export const recapSchema = z
     participation: z.enum(['played', 'injured', 'inactive', 'bye']),
     stats: statsSchema,
     note: z.string().max(1000),
+    title: z.string().trim().max(80).optional(),
+    team: z.string().max(80).optional(),
     reward: integer.min(0),
     highlight: z
       .object({
@@ -253,6 +255,18 @@ export const careerSchema = z
     promises: z.array(promiseSchema),
     conflicts: z.array(z.string()),
     recaps: z.array(recapSchema).max(110),
+    undo: z.object({ label: z.string().max(160), before: z.string().max(2000000) }).optional(),
+    moments: z
+      .array(
+        z.object({
+          id: z.string().max(240),
+          title: z.string().max(160),
+          body: z.string().max(20000),
+          at: z.string(),
+        }),
+      )
+      .max(500)
+      .default([]),
     awards: z
       .array(
         z.object({
@@ -272,6 +286,9 @@ export const careerSchema = z
           scope: z.enum(['game', 'season']),
           value: z.number().finite().min(0).max(100000).multipleOf(0.5),
           holder: z.string().trim().min(1).max(100),
+          level: z.enum(['league', 'franchise']).optional(),
+          team: z.string().max(80).optional(),
+          rookieOnly: z.boolean().optional(),
         }),
       )
       .max(100)
@@ -337,6 +354,7 @@ export const careerSchema = z
         body: z.string(),
         at: z.string(),
         kind: z.enum(['story', 'game', 'progression', 'setup', 'action']),
+        sourceRecapId: z.string().optional(),
       }),
     ),
     playoffRound: integer.min(0).max(4),
@@ -345,11 +363,26 @@ export const careerSchema = z
   })
   .superRefine((c, ctx) => {
     if (
+      new Set(c.moments.map((m) => m.id)).size !== c.moments.length ||
+      c.recaps.some((r) => r.team && !leagueTeams(c.game).includes(r.team))
+    )
+      ctx.addIssue({ code: 'custom', message: 'Invalid moments or game team history.' });
+    if (
       new Set(c.awards.map((a) => a.id)).size !== c.awards.length ||
-      new Set(c.recordBook.map((r) => `${r.phase}-${r.scope}-${r.metric}`)).size !==
-        c.recordBook.length
+      new Set(
+        c.recordBook.map(
+          (r) =>
+            `${r.phase}-${r.scope}-${r.metric}-${r.level ?? 'league'}-${r.team ?? ''}-${!!r.rookieOnly}`,
+        ),
+      ).size !== c.recordBook.length
     )
       ctx.addIssue({ code: 'custom', message: 'Duplicate awards or league records.' });
+    if (
+      c.recordBook.some((r) =>
+        r.level === 'franchise' ? !r.team || !leagueTeams(c.game).includes(r.team) : !!r.team,
+      )
+    )
+      ctx.addIssue({ code: 'custom', message: 'Franchise records need a team in this league.' });
     if ((c.player.position === 'PG') !== (c.game === 'nba2k'))
       ctx.addIssue({ code: 'custom', message: 'Position does not match game.' });
     if (

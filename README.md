@@ -120,6 +120,12 @@ Apply the rotation or depth-chart edit in your game, then confirm it in **Player
 
 The **Awards & records** screen is your trophy room.
 
+And the **Career snapshot** is your résumé. See the player you've become: your role, production, relationships, awards, and current chapter, all together. Last-five trends put a hot streak in context, and coaches can recognize your recent form and the kind of choices you keep making.
+
+![Career snapshot and recent-form trends in the Cinematic Career Hub](docs/screenshots/career-snapshot.png)
+
+Give a game a name. Bookmark the comeback nobody else saw. Revisit those moments in your timeline, and get a quick “Previously…” before the next major conversation. Made a typo? Preview the correction before saving, or undo the most recent check-in while its checkpoint is still available.
+
 Report the honors your player actually wins: Rookie of the Year, MVP, Defensive Player of the Year, All-NBA, All-Pro, and other game-appropriate awards. Regular-season honors unlock after the regular season; championship MVP requires a completed run to the final round.
 
 Each honor grants its displayed bonus **once per career**. MVP pays **12 points**, Rookie of the Year **8**, and player-of-the-year honors **10**.
@@ -129,6 +135,8 @@ Each honor grants its displayed bonus **once per career**. MVP pays **12 points*
 Track personal game highs, season totals, memorable performances, and league marks. Regular-season, preseason where applicable, and postseason personal records are kept separate.
 
 The league book includes selected sourced starter records, and you can edit or add game and season marks to match your own league or era. It is your save’s record book—not a live feed of every NBA or NFL record.
+
+You can also add **franchise and rookie records**. A night can make team history without needing to beat the entire league, and breaking a configured team mark can earn a historic-game conversation.
 
 ## Your first season starts here
 

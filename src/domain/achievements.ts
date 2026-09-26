@@ -52,7 +52,17 @@ export function personalMetrics(c: Career): (keyof Stats)[] {
   ];
 }
 export type LeagueRecord = Career['recordBook'][number] & { source?: string };
-export const recordKey = (r: LeagueRecord) => `${r.phase}-${r.scope}-${r.metric}`;
+export const recordKey = (r: LeagueRecord) =>
+  `${r.phase}-${r.scope}-${r.metric}${r.level === 'franchise' ? `-franchise-${r.team}` : ''}${r.rookieOnly ? '-rookie' : ''}`;
+export const recordLevel = (r: LeagueRecord) =>
+  `${r.level === 'franchise' ? r.team + ' franchise' : 'league'}${r.rookieOnly ? ' rookie' : ''}`;
+export function recordGames(c: Career): Recap[] {
+  // Older saves with a trade have no reliable per-game team attribution.
+  return c.recaps.map((r) => ({
+    ...r,
+    team: r.team ?? (c.flags.includes('traded') ? undefined : c.draft?.team),
+  }));
+}
 export function leagueBook(c: Career): LeagueRecord[] {
   const defaults = records[c.game].map((r) => ({
     ...r,
@@ -65,14 +75,21 @@ export function leagueBook(c: Career): LeagueRecord[] {
 }
 export function recordValue(games: Recap[], record: LeagueRecord): number {
   const values = games
-    .filter((r) => r.participation === 'played' && r.phase === record.phase)
+    .filter(
+      (r) =>
+        r.participation === 'played' &&
+        r.phase === record.phase &&
+        (record.level !== 'franchise' || r.team === record.team),
+    )
     .map((r) => r.stats[record.metric as keyof Stats]);
   return record.scope === 'season' ? values.reduce((a, b) => a + b, 0) : Math.max(0, ...values);
 }
 export function performanceTier(c: Career, r: Recap): Recap['highlight'] {
   if (r.participation !== 'played') return;
   const index = c.recaps.findIndex((x) => x.id === r.id);
-  const prior = index < 0 ? c.recaps : c.recaps.slice(0, index);
+  const attributed = recordGames(c);
+  const prior = index < 0 ? attributed : attributed.slice(0, index);
+  r = { ...r, team: r.team ?? (c.flags.includes('traded') ? undefined : c.draft?.team) };
   const broken = leagueBook(c).filter((book) => {
     if (book.phase !== r.phase) return false;
     const before = recordValue(prior, book);
@@ -89,7 +106,7 @@ export function performanceTier(c: Career, r: Recap): Recap['highlight'] {
         broken
           .map(
             (book) =>
-              `${recordValue([...prior, r], book)} ${statName(book.metric)} — ${book.phase} ${book.scope} league record; previous mark ${Math.max(book.value, recordValue(prior, book))}`,
+              `${recordValue([...prior, r], book)} ${statName(book.metric)} — ${book.phase} ${book.scope} ${recordLevel(book)} record; previous mark ${Math.max(book.value, recordValue(prior, book))}`,
           )
           .join('; ') + ` ${context}.`,
     };
@@ -158,11 +175,17 @@ export function recordAward(career: Career, id: string): Career {
   });
   return c;
 }
-export function setLeagueRecord(career: Career, record: LeagueRecord): Career {
+export function setLeagueRecord(
+  career: Career,
+  record: LeagueRecord,
+  previousKey?: string,
+): Career {
   const c = structuredClone(career);
   if (!personalMetrics(c).includes(record.metric as keyof Stats))
     throw new Error('Choose a stat for this position.');
-  c.recordBook = c.recordBook.filter((r) => recordKey(r) !== recordKey(record));
+  c.recordBook = c.recordBook.filter(
+    (r) => recordKey(r) !== recordKey(record) && recordKey(r) !== previousKey,
+  );
   c.recordBook.push(record);
   c.updatedAt = new Date().toISOString();
   return careerSchema.parse(c);

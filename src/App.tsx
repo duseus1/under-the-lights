@@ -39,6 +39,8 @@ import {
 } from './storage';
 import Builder from './components/Builder';
 import AwardsRecords from './components/AwardsRecords';
+import { Snapshot, UndoCheckIn } from './components/CareerMemory';
+import { prepareCareerChange } from './domain/career-memory';
 import {
   ErrorBanner,
   GamesView,
@@ -53,6 +55,7 @@ import {
 
 const nav: { id: Page; label: string; icon: typeof LayoutDashboard }[] = [
   { id: 'hub', label: 'Career hub', icon: LayoutDashboard },
+  { id: 'snapshot', label: 'Career snapshot', icon: FolderHeart },
   { id: 'story', label: 'Your story', icon: BookOpen },
   { id: 'games', label: 'Season & games', icon: Trophy },
   { id: 'progression', label: 'Player progression', icon: Zap },
@@ -128,7 +131,10 @@ export default function App() {
   };
   const changeCareer = async (next: Career) => {
     if (!state) return;
-    await commit({ ...state, careers: state.careers.map((c) => (c.id === next.id ? next : c)) });
+    await commit({
+      ...state,
+      careers: state.careers.map((c) => (c.id === next.id ? prepareCareerChange(c, next) : c)),
+    });
   };
   // UI callbacks report errors centrally without leaving unhandled rejected promises.
   const safeChange = async (next: Career) => {
@@ -241,7 +247,7 @@ export default function App() {
             <span>LOCAL SAVES. TOTAL CONTROL.</span>
           </div>
           <div className="version">
-            INDEPENDENT COMPANION <span>v0.8</span>
+            INDEPENDENT COMPANION <span>v1.0</span>
           </div>
         </div>
       </aside>
@@ -277,6 +283,13 @@ export default function App() {
         <main ref={main} id="main-content">
           {error && <ErrorBanner error={error} onDismiss={() => setError('')} />}
           <fieldset disabled={busy} className="workspace-fieldset">
+            {active && !creating && (
+              <UndoCheckIn
+                key={active.id + (active.undo?.label ?? '')}
+                career={active}
+                onChange={safeChange}
+              />
+            )}
             {creating && !selectedGame ? (
               <GameSelection onSelect={setSelectedGame} onBack={() => setCreating(false)} />
             ) : creating ? (
@@ -316,6 +329,8 @@ export default function App() {
               />
             ) : page === 'hub' ? (
               <Hub career={active} onChange={safeChange} onPage={go} />
+            ) : page === 'snapshot' ? (
+              <Snapshot career={active} />
             ) : page === 'story' ? (
               <StoryView career={active} onChange={safeChange} onPage={go} />
             ) : page === 'games' ? (
@@ -327,7 +342,7 @@ export default function App() {
             ) : page === 'awards' ? (
               <AwardsRecords career={active} onChange={safeChange} />
             ) : (
-              <TimelineView career={active} />
+              <TimelineView career={active} onChange={safeChange} />
             )}
           </fieldset>
           <footer className="page-footer">

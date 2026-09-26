@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Trophy, Medal, Sparkles } from 'lucide-react';
 import type { Career } from '../domain/types';
+import { leagueTeams } from '../data/games';
+import { RememberButton } from './CareerMemory';
 import { PageHeading, type ChangeCareer } from './CareerViews';
 import {
   availableAwards,
@@ -11,6 +13,8 @@ import {
   recordAward,
   recordKey,
   recordValue,
+  recordGames,
+  recordLevel,
   setLeagueRecord,
   statName,
   tierNames,
@@ -26,6 +30,11 @@ export default function AwardsRecords({
 }) {
   const [phase, setPhase] = useState<'regular' | 'playoff' | 'preseason'>('regular');
   const [editing, setEditing] = useState<LeagueRecord | null>(null);
+  const [editingKey, setEditingKey] = useState<string | undefined>();
+  const openRecord = (r: LeagueRecord, existing = false) => {
+    setEditing(r);
+    setEditingKey(existing ? recordKey(r) : undefined);
+  };
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [selectedAward, setSelectedAward] = useState('');
@@ -183,19 +192,22 @@ export default function AwardsRecords({
         </div>
       </section>
       <section className="panel achievement-section">
-        <div className="eyebrow">LEAGUE RECORDS</div>
+        <div className="eyebrow">FRANCHISE & LEAGUE RECORDS</div>
         <h2>A place in history</h2>
         <p className="muted">
           Starter records use selected real-world regular-season marks. Update them to match your
           Madden or 2K league, or add a game or season record. Only strictly beating a mark counts
-          as historic; tying it does not. Postseason records are separate.
+          as historic; tying it does not. Postseason records are separate. Add a franchise baseline
+          for your team or its rookie records. Use your league’s actual marks; no team records are
+          assumed. Team records only count games played for that team. Older games with unknown team
+          history after a trade are excluded from franchise marks.
         </p>
         <div className="table-wrap">
           <table className="records-table">
             <thead>
               <tr>
                 <th>Record</th>
-                <th>League baseline</th>
+                <th>Record baseline</th>
                 <th>Your mark</th>
                 <th>Status</th>
                 <th>Book</th>
@@ -203,13 +215,13 @@ export default function AwardsRecords({
             </thead>
             <tbody>
               {leagueBook(c).map((r) => {
-                const value = recordValue(c.recaps, r);
+                const value = recordValue(recordGames(c), r);
                 return (
                   <tr key={recordKey(r)}>
                     <th>
                       {statName(r.metric)}
                       <small>
-                        {r.phase} · {r.scope}
+                        {r.phase} · {r.scope} · {recordLevel(r)}
                       </small>
                     </th>
                     <td>
@@ -235,10 +247,17 @@ export default function AwardsRecords({
                       <button
                         className="text-button"
                         aria-label={`Edit ${r.phase} ${r.scope} ${statName(r.metric)} record`}
-                        onClick={() => setEditing({ ...r })}
+                        onClick={() => openRecord({ ...r }, true)}
                       >
                         Edit
                       </button>
+                      <RememberButton
+                        career={c}
+                        onChange={onChange}
+                        id={`record-${recordKey(r)}`}
+                        title={`${recordLevel(r)} ${statName(r.metric)}`}
+                        body={`${r.phase} ${r.scope}: your mark ${value}; baseline ${r.value} (${r.holder}). ${value > r.value ? 'Record broken.' : value === r.value ? 'Tied.' : 'Chasing.'}`}
+                      />
                     </td>
                   </tr>
                 );
@@ -249,7 +268,7 @@ export default function AwardsRecords({
         <button
           className="button secondary"
           onClick={() =>
-            setEditing({
+            openRecord({
               metric: personalMetrics(c)[0],
               phase: 'regular',
               scope: 'game',
@@ -260,18 +279,60 @@ export default function AwardsRecords({
         >
           Add league record
         </button>
+        <button
+          className="button secondary"
+          onClick={() =>
+            openRecord({
+              metric: personalMetrics(c)[0],
+              phase: 'regular',
+              scope: 'game',
+              value: 0,
+              holder: '',
+              level: 'franchise',
+              team: c.draft?.team ?? leagueTeams(c.game)[0],
+              rookieOnly: false,
+            })
+          }
+        >
+          Add franchise record
+        </button>
         {editing && (
           <form
             className="record-editor"
             onSubmit={(e) => {
               e.preventDefault();
               void save(
-                () => setLeagueRecord(c, editing),
-                'League record saved. Future games use this mark.',
+                () => setLeagueRecord(c, editing, editingKey),
+                'Record saved. Future games use this mark.',
               );
             }}
           >
-            <h3>League record baseline</h3>
+            <h3>{editing.level === 'franchise' ? 'Franchise' : 'League'} record baseline</h3>
+            {editing.level === 'franchise' && (
+              <label>
+                Record team
+                <select
+                  value={editing.team}
+                  onChange={(e) => setEditing({ ...editing, team: e.target.value })}
+                >
+                  {leagueTeams(c.game).map((t) => (
+                    <option key={t}>{t}</option>
+                  ))}
+                </select>
+              </label>
+            )}
+            <label>
+              Record category
+              <select
+                value={editing.rookieOnly ? 'rookie' : 'all'}
+                onChange={(e) =>
+                  setEditing({ ...editing, rookieOnly: e.target.value === 'rookie' })
+                }
+              >
+                <option value="all">All players</option>
+                <option value="rookie">Rookie record</option>
+              </select>
+            </label>
             <label>
               Record statistic
               <select
@@ -335,7 +396,7 @@ export default function AwardsRecords({
               existing highlights and conversations stay as originally recorded.
             </p>
             <button className="button primary" type="submit">
-              Save league record
+              {editing.level === 'franchise' ? 'Save franchise record' : 'Save league record'}
             </button>
             <button className="text-button" type="button" onClick={() => setEditing(null)}>
               Close editor
@@ -358,7 +419,8 @@ export default function AwardsRecords({
             <b>Exceptional</b> · Rare production, such as 75 points or 500 passing yards.
           </p>
           <p>
-            <b>Historic</b> · A league game or season record broken against this save’s record book.
+            <b>Historic</b> · A franchise or league game or season record broken against this save’s
+            record book, including rookie records.
           </p>
         </div>
         <p className="muted">

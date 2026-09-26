@@ -1,5 +1,6 @@
 import { invoke, isTauri } from '@tauri-apps/api/core';
 import { appSchema, initialState, type AppState } from './domain/types';
+import { undoCheckIn } from './domain/career-memory';
 export type Backup = { id: number; createdAt: string; data: string };
 const MAX_BYTES = 8_000_000;
 let database: Promise<IDBDatabase> | null = null;
@@ -39,7 +40,9 @@ function completion(tx: IDBTransaction) {
 export function parseSave(data: string): AppState {
   if (data.length > MAX_BYTES) throw new Error('This save exceeds the 8 MB import limit.');
   try {
-    return appSchema.parse(JSON.parse(data));
+    const state = appSchema.parse(JSON.parse(data));
+    for (const c of state.careers) if (c.undo) undoCheckIn(c);
+    return state;
   } catch {
     throw new Error(
       'This is not a valid version 1 Under the Lights save. Your current careers have not been changed.',
@@ -103,7 +106,15 @@ export async function nativeImport(): Promise<string | null> {
   return invoke('import_save');
 }
 export function mergeImport(current: AppState, incoming: AppState): AppState {
-  const imported = incoming.careers.map((c) => ({ ...c, id: crypto.randomUUID() }));
+  const imported = incoming.careers.map((c) => {
+    const id = crypto.randomUUID();
+    const copy = { ...c, id };
+    if (c.undo) {
+      const snapshot = JSON.parse(c.undo.before);
+      copy.undo = { ...c.undo, before: JSON.stringify({ ...snapshot, id }) };
+    }
+    return copy;
+  });
   return appSchema.parse({
     ...current,
     careers: [...current.careers, ...imported],

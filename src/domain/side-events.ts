@@ -1,4 +1,5 @@
 import data from '../data/side-events.json';
+import { recentForm, tendencyDialogue } from './career-memory';
 import type { Career, Recap } from './types';
 import { syncRelationshipBenefits } from './relationships';
 import { performanceTier, tierDescriptions, tierNames } from './achievements';
@@ -34,7 +35,7 @@ export function offerSideEvent(c: Career, r: Recap) {
     kind: template.kind as 'press' | 'coach' | 'teammate',
     title: template.title,
     speaker: template.speaker,
-    body,
+    body: [body, recentForm(c).body, tendencyDialogue(c)].filter(Boolean).join('\n\n'),
     evidence,
     choices: structuredClone(template.choices),
     status: 'pending',

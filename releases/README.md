@@ -10,5 +10,7 @@ The first public release brings the whole career experience together: Madden and
 - Relationship tiers that unlock role and playing-time instructions.
 - Awards, personal bests, league records, and a rookie-season retrospective.
 - Multiple local careers, backups, export/import, and two visual modes.
+- Career snapshots, recent-form dialogue, choice tendencies, remembered moments, game titles, correction previews, and a guarded one-step undo.
+- Custom franchise and rookie record baselines that can trigger historic conversations.
 
 This release consolidates the development builds into one starting version: **v1.0.0**. Check `SHA256SUMS.txt` for the installer's checksum.

@@ -4,6 +4,19 @@
 
 Detailed setup, gameplay rules, save behavior, and development notes. File paths below are relative to the repository root.
 
+## Your career notebook
+
+- **Career snapshot:** your rookie-season résumé, role, archetype, team record, key production, relationships, awards, and story chapter. The rating shown is the average of app-managed attributes; it is not a calculated Madden or 2K overall.
+- **Recent form:** the last five played games compared with the preceding five in the same phase. Percentages use combined makes and attempts. Byes, injuries, and inactive appearances are excluded. HOT, COLD, SURGING, and INCONSISTENT tags use the existing performance grades and select authored dialogue. Expand the explanation for exact rules.
+- **Previously…:** before Pressure, Turning Point, and Legacy, a short recap recalls your last decision, latest promise, latest played game, and current role and relationships.
+- **Remember this:** bookmark games, completed conversations, timeline entries, and record marks. They appear under Remembered moments in Career timeline. Bookmarks preserve the moment as saved. Give a recap an optional game title to label its timeline entry, and keep the details in its note.
+- **Correction preview:** Save correction first opens a preview of totals, personal bests, record marks, and team results. Confirm correction applies it. Editing the form again requires another preview. Earned points, completed conversations, promises, and playoff advancement are preserved.
+- **Undo last check-in:** a single checkpoint restores the whole career before the latest game or conversation, including rewards and side events. It survives closing the app and export/import. Any later career change closes that undo window; navigation and presentation settings do not. Confirming undo removes the checkpoint, and manual changes inside Madden or 2K still need to be reversed there.
+- **Career tendencies:** authored choice tags count team-first, ambitious, accountable, and defiant responses. Counts apply to old saved choices too, with no rewards or morality meter. Repeated choices can add a remembered tendency to a conversation.
+- **Franchise records:** add your team's game or season baseline in Awards & records, optionally limited to rookies. Strictly exceeding it can trigger a historic event. Enter the actual baseline from your league; team records are not preloaded. New games retain the team they were played for. Older saves that already include a trade cannot reliably attribute earlier games, so those games are excluded from team records until a known team is present. League and personal records still work.
+
+These additions use existing local saves and authored content. The career still ends after the rookie season.
+
 A local-first Madden and NBA 2K career companion for Windows 11. React + TypeScript, Tauri 2, and SQLite. No account, remote backend, AI API, or paid service is used.
 
 ## Install

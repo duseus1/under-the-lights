@@ -1,4 +1,5 @@
 import { offerSideEvent } from './side-events';
+import { recentForm, tendencyDialogue } from './career-memory';
 import { syncRelationshipBenefits } from './relationships';
 import { gameReward } from './rewards';
 import { performanceReaction } from './performance';
@@ -203,6 +204,8 @@ export function eventBody(c: Career) {
           : '';
   return [
     context,
+    event.after > 0 && c.recaps.at(-1)?.participation === 'played' ? recentForm(c).body : '',
+    event.after > 0 ? tendencyDialogue(c) : '',
     reaction ? (branch?.body ?? event.body) + '\n\n' + reaction.body : (branch?.body ?? event.body),
     followThrough,
     situation,
@@ -481,6 +484,7 @@ export function submitRecap(career: Career, input: Recap) {
   r.rewardBreakdown = gameReward(c.player.position, r);
   r.reward = r.rewardBreakdown.total;
   r.edited = false;
+  r.team = c.draft!.team;
   c.points += r.reward;
   c.recaps.push(r);
   if (r.participation === 'played') {
@@ -548,6 +552,7 @@ export function submitRecap(career: Career, input: Recap) {
       : `${r.ownScore}–${r.opponentScore} vs ${r.opponent} · ${r.participation} · +${r.reward} development points. ${r.rewardBreakdown.items.map((i) => `${i.label}: ${i.points > 0 ? '+' : ''}${i.points}`).join('; ')}`,
     'game',
   );
+  c.timeline[c.timeline.length - 1].sourceRecapId = r.id;
   if (c.status === 'season' && c.recaps.length === (isBasketball(c) ? c.seasonGames : 21))
     c.status = 'postseason';
   else if (c.status === 'postseason' && isBasketball(c)) {
@@ -585,6 +590,7 @@ export function editRecap(career: Career, input: Recap) {
     edited: true,
     phase: old.phase,
     week: old.week,
+    team: old.team,
   });
   validateLeagueRecap(c, r);
   if ((old.participation === 'bye') !== (r.participation === 'bye'))
@@ -597,6 +603,17 @@ export function editRecap(career: Career, input: Recap) {
       'A correction cannot change an already-resolved playoff advancement. Restore a backup to change that outcome.',
     );
   c.recaps = c.recaps.map((x) => (x.id === r.id ? r : x));
+  const legacyTitle =
+    old.phase === 'preseason'
+      ? `Preseason ${old.week}`
+      : old.phase === 'regular'
+        ? `${isBasketball(c) ? 'Game' : 'Week'} ${old.week}`
+        : '';
+  const entry = c.timeline.find(
+    (t) =>
+      t.kind === 'game' && (t.sourceRecapId === r.id || (!!legacyTitle && t.title === legacyTitle)),
+  );
+  if (entry) entry.sourceRecapId = r.id;
   log(
     c,
     'Recap corrected',

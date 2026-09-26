@@ -3269,3 +3269,38 @@ td .tag {
     padding: 18px;
   }
 }
+/* Career notebook additions share both presentation themes. */
+.memory-section {
+  padding: 24px;
+  margin: 0 0 20px;
+}
+.memory-section > p {
+  line-height: 1.65;
+}
+.memory-section > .text-button {
+  display: block;
+  margin-top: 12px;
+}
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+  margin: 20px 0;
+}
+.memory-grid h3 {
+  margin: 8px 0;
+}
+.moment-button {
+  white-space: nowrap;
+  margin: 8px 0;
+}
+.snapshot-card h2 {
+  font-size: 36px;
+  margin: 12px 0;
+}
+.memory-section details {
+  margin-top: 16px;
+}
+.memory-section select {
+  max-width: 300px;
+}
