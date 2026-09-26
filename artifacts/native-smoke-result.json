@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "storage": "SQLite",
+  "position": "EDGE",
+  "savedHalfSacks": 1.5,
+  "upgradedFinesseMoves": 84,
+  "recoveryPoints": 10,
+  "theme": "cinematic",
+  "checkedAt": "2026-09-25T03:33:50.233Z"
+}

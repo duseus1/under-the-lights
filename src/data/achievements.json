@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "minimumAppearances": 3,
+  "breakoutMultiplier": 2,
+  "tiers": {
+    "breakout": "A step beyond your usual role. The staff wants to understand what clicked and how you can build on it.",
+    "standout": "You changed the conversation with a standout performance. Everyone wants to know whether this can become your new standard.",
+    "exceptional": "Games like this are rare even among the best players in the league. The attention is bigger, and so are the expectations that follow.",
+    "historic": "You moved the league record book. This conversation is about a place in history, the people who helped you get here, and what comes after the headline."
+  },
+  "metrics": {
+    "PG": [
+      ["points", 15, 10, 40, 75],
+      ["assists", 8, 5, 15, 25],
+      ["rebounds", 10, 6, 20, 35],
+      ["steals", 4, 3, 6, 9],
+      ["blocks", 3, 2, 5, 10],
+      ["doubleDigits", 3, 3, 3, 5]
+    ],
+    "QB": [
+      ["passingYards", 200, 100, 400, 500],
+      ["qbTD", 3, 2, 5, 7],
+      ["rushingYards", 60, 40, 120, 200]
+    ],
+    "WR": [
+      ["receivingYards", 75, 50, 180, 250],
+      ["receivingTD", 2, 2, 3, 4]
+    ],
+    "TE": [
+      ["receivingYards", 60, 40, 125, 200],
+      ["receivingTD", 2, 2, 2, 4]
+    ],
+    "RB": [
+      ["scrimmageYards", 100, 60, 200, 275],
+      ["rbTD", 2, 2, 3, 5]
+    ],
+    "S": [
+      ["tackles", 8, 5, 14, 20],
+      ["takeaways", 2, 2, 2, 4],
+      ["passDeflections", 3, 2, 5, 8]
+    ],
+    "LB": [
+      ["tackles", 10, 6, 18, 25],
+      ["takeaways", 2, 2, 2, 4],
+      ["sacks", 2, 1.5, 3, 5]
+    ],
+    "EDGE": [
+      ["sacks", 2, 1.5, 3, 5],
+      ["tacklesForLoss", 3, 2, 5, 8],
+      ["takeaways", 2, 2, 2, 4]
+    ]
+  },
+  "awards": {
+    "nba2k": [
+      { "id": "mvp", "name": "Most Valuable Player", "points": 12 },
+      { "id": "roy", "name": "Rookie of the Year", "points": 8 },
+      { "id": "dpoy", "name": "Defensive Player of the Year", "points": 10 },
+      { "id": "mip", "name": "Most Improved Player", "points": 6 },
+      { "id": "sixth", "name": "Sixth Man of the Year", "points": 6 },
+      { "id": "all-nba", "name": "All-NBA selection", "points": 5 },
+      { "id": "all-defense", "name": "All-Defensive selection", "points": 5 },
+      { "id": "all-rookie", "name": "All-Rookie selection", "points": 3 },
+      { "id": "all-star", "name": "All-Star selection", "points": 3 },
+      { "id": "finals-mvp", "name": "Finals MVP", "points": 10, "postseason": true }
+    ],
+    "madden": [
+      { "id": "mvp", "name": "Most Valuable Player", "points": 12 },
+      { "id": "oroy", "name": "Offensive Rookie of the Year", "points": 8, "side": "offense" },
+      { "id": "droy", "name": "Defensive Rookie of the Year", "points": 8, "side": "defense" },
+      { "id": "opoy", "name": "Offensive Player of the Year", "points": 10, "side": "offense" },
+      { "id": "dpoy", "name": "Defensive Player of the Year", "points": 10, "side": "defense" },
+      { "id": "pro-bowl", "name": "Pro Bowl selection", "points": 3 },
+      { "id": "all-pro", "name": "All-Pro selection", "points": 5 },
+      { "id": "super-bowl-mvp", "name": "Super Bowl MVP", "points": 10, "postseason": true }
+    ]
+  }
+}

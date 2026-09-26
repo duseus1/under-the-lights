@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "storage": "SQLite",
+  "position": "PG",
+  "performanceBranch": "PG:creator",
+  "awardedPoints": 5,
+  "remainingDevelopmentPoints": 3,
+  "points": 20,
+  "assists": 15,
+  "sideEvent": "The microphones are waiting",
+  "sideEventStatus": "resolved",
+  "upgradedAttribute": "Ball handle",
+  "recoveryPoints": 10,
+  "theme": "cinematic",
+  "checkedAt": "2026-09-25T23:09:15.392Z"
+}

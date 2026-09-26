@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "base": 1,
+  "minimum": 1,
+  "maximum": 5,
+  "missedGame": 1,
+  "bye": 1,
+  "profiles": {
+    "QB": {
+      "production": [175, 300],
+      "efficiencyAttempts": 15,
+      "completionPercent": 65,
+      "impactTD": 3
+    },
+    "WR": {
+      "production": [50, 100],
+      "efficiencyTargets": 5,
+      "catchPercent": 70
+    },
+    "TE": {
+      "production": [35, 75],
+      "efficiencyTargets": 5,
+      "catchPercent": 70
+    },
+    "RB": {
+      "production": [60, 120],
+      "efficiencyCarries": 8,
+      "yardsPerCarry": 4.5,
+      "efficiencyCatches": 4,
+      "efficiencyReceivingYards": 40
+    },
+    "PG": {
+      "production": [25, 40],
+      "efficiencyAttempts": 8,
+      "fieldGoalPercent": 45,
+      "cleanTurnovers": 2
+    },
+    "S": {
+      "production": [6, 10]
+    },
+    "LB": {
+      "production": [8, 12]
+    },
+    "EDGE": {
+      "production": [4, 8]
+    }
+  },
+  "defense": {
+    "efficiencySnaps": 20,
+    "maxMissedTackles": 1
+  },
+  "penalties": {
+    "giveaways": [2, 4],
+    "receiverErrors": [2, 4],
+    "lostFumbles": [1, 2],
+    "turnovers": [4, 6],
+    "missedTackles": [3, 5]
+  }
+}

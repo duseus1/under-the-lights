@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "tiers": [
+    {
+      "min": 0,
+      "coach": "On thin ice",
+      "teammate": "Disconnected",
+      "reputation": "Under scrutiny"
+    },
+    {
+      "min": 40,
+      "coach": "Earning trust",
+      "teammate": "Finding your place",
+      "reputation": "Finding your name"
+    },
+    {
+      "min": 65,
+      "coach": "Trusted contributor",
+      "teammate": "Trusted teammate",
+      "reputation": "Respected prospect"
+    },
+    {
+      "min": 80,
+      "coach": "Starter confidence",
+      "teammate": "Locker-room leader",
+      "reputation": "Rising star"
+    },
+    {
+      "min": 90,
+      "coach": "Coach’s cornerstone",
+      "teammate": "Team cornerstone",
+      "reputation": "Face of the future"
+    }
+  ],
+  "benefits": [
+    {
+      "min": 65,
+      "minutes": 24,
+      "basketballRole": "Rotation contributor",
+      "footballRole": "Regular rotation contributor",
+      "football": "Increase your player’s rotational snaps using the depth chart and available formation substitutions. Keep the current starter ahead of you."
+    },
+    {
+      "min": 80,
+      "minutes": 30,
+      "basketballRole": "Starting point guard",
+      "footballRole": "Starter",
+      "football": "Move your player into a starting spot at their position on the depth chart. For positions with multiple starters, use an appropriate starting slot."
+    },
+    {
+      "min": 90,
+      "minutes": 34,
+      "basketballRole": "Core starter",
+      "footballRole": "Featured starter",
+      "football": "Keep your player in a starting spot and include them in relevant specialist packages and key situations. Respect injuries, fatigue and available substitutions."
+    }
+  ]
+}

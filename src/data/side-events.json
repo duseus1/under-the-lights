@@ -1,0 +1,102 @@
+{
+  "version": 2,
+  "cooldownAppearances": 3,
+  "events": [
+    {
+      "kind": "press",
+      "title": "The microphones are waiting",
+      "speaker": "Postgame reporter",
+      "win": "“That performance is going to be part of the conversation after this win. What should people understand about how it happened—and what comes next?”",
+      "loss": "“Your individual performance stood out, but the team did not win. How do you talk about your own night without losing sight of the result?”",
+      "tie": "“Your individual performance stood out in a tied game. What do you take from it, and what does the team still need to finish?”",
+      "choices": [
+        {
+          "id": "credit",
+          "label": "Share the credit",
+          "description": "Talk about the teammates and preparation behind your performance.",
+          "outcome": "You put other names into the interview. The locker room appreciates being part of the story.",
+          "effects": {
+            "coach": 1,
+            "teammate": 4,
+            "reputation": 1
+          }
+        },
+        {
+          "id": "standard",
+          "label": "Set a higher standard",
+          "description": "Say this is the level you intend to keep chasing.",
+          "outcome": "Your ambition becomes the headline. The staff hears confidence, and a standard it will expect you to work toward.",
+          "effects": {
+            "coach": -1,
+            "teammate": -1,
+            "reputation": 5
+          }
+        }
+      ]
+    },
+    {
+      "kind": "coach",
+      "title": "A knock on the office door",
+      "speaker": "Position coach",
+      "win": "“That was a big contribution to a win. I want to know what we can repeat when the opponent takes away your first answer. How do you want to use the next review?”",
+      "loss": "“Your production deserves recognition. The result also tells us that one player’s line cannot answer every question. What should our next review focus on?”",
+      "tie": "“There is plenty to build on in your performance, but the game still ended level. What do you want to learn from the next review?”",
+      "choices": [
+        {
+          "id": "film",
+          "label": "Find the repeatable decisions",
+          "description": "Review the reads and preparation behind the performance.",
+          "outcome": "You and the coach turn the big game into specific preparation notes. The staff trusts your approach a little more.",
+          "effects": {
+            "coach": 4,
+            "teammate": 1,
+            "reputation": 0
+          }
+        },
+        {
+          "id": "responsibility",
+          "label": "Ask to compete for more responsibility",
+          "description": "Use the performance to make a case, without assuming a promotion.",
+          "outcome": "The coach agrees to keep evaluating your case. No real-game rotation or depth-chart change has been promised.",
+          "effects": {
+            "coach": 1,
+            "teammate": -1,
+            "reputation": 3
+          }
+        }
+      ]
+    },
+    {
+      "kind": "teammate",
+      "title": "One more conversation in the locker room",
+      "speaker": "Veteran teammate",
+      "win": "“People will remember your numbers from this win. I want to know what you saw out there. Can we work through it together?”",
+      "loss": "“You had a big game, and the loss still hurts. We can recognize what you did without pretending the job is done. How do we build from here?”",
+      "tie": "“You had a big game, even if neither team finished ahead. What can the rest of us learn from what you saw?”",
+      "choices": [
+        {
+          "id": "together",
+          "label": "Bring everyone into the review",
+          "description": "Share what worked and ask what teammates saw.",
+          "outcome": "Your teammates leave with a clearer picture of your decisions. The big game becomes something the group can learn from.",
+          "effects": {
+            "coach": 1,
+            "teammate": 4,
+            "reputation": 0
+          }
+        },
+        {
+          "id": "routine",
+          "label": "Protect your individual routine",
+          "description": "Explain the preparation you want to keep doing on your own.",
+          "outcome": "The veteran respects the work, but notices the distance. You keep ownership of your routine and a more independent reputation.",
+          "effects": {
+            "coach": 1,
+            "teammate": -2,
+            "reputation": 3
+          }
+        }
+      ]
+    }
+  ]
+}

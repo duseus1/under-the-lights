@@ -1,0 +1,305 @@
+{
+  "version": 1,
+  "window": 3,
+  "profiles": {
+    "PG": [
+      {
+        "id": "loose-handle",
+        "label": "Protect the possession",
+        "when": [["last.turnovers", "gte", 4]],
+        "body": "“Before we talk about who runs this offense, we need to talk about keeping the ball. The latest box score has too many turnovers. Walk me through the decisions you would make differently, then tell me how you will simplify the next game.”"
+      },
+      {
+        "id": "cold-shooting",
+        "label": "Work through the shooting slump",
+        "when": [
+          ["avg.fieldGoalsAttempted", "gte", 10],
+          ["fgPercent", "lt", 35]
+        ],
+        "body": "“The shots have not been falling over this stretch. I am not asking you to stop being a threat. I am asking how you will help us while you find your rhythm—create a better look, get to the line, or move the ball. What can we count on?”"
+      },
+      {
+        "id": "creator",
+        "label": "Making teammates better",
+        "when": [
+          ["avg.assists", "gte", 8],
+          ["avg.turnovers", "lte", 3]
+        ],
+        "body": "“Those assists give us something concrete to discuss. You are creating baskets without giving too many possessions away. Now the challenge is making those reads repeatable when opponents change their coverage. Bring the other four players into that conversation.”"
+      },
+      {
+        "id": "scoring-run",
+        "label": "A scoring threat",
+        "when": [
+          ["avg.points", "gte", 25],
+          ["avg.fieldGoalsAttempted", "gte", 10],
+          ["fgPercent", "gte", 45]
+        ],
+        "body": "“You have been scoring efficiently enough to demand attention. That earns a different conversation. When the extra defender comes, will you see it as a chance for somebody else, or a test you have to win alone?”"
+      },
+      {
+        "id": "limited-minutes",
+        "label": "An opportunity conversation",
+        "when": [["avg.minutes", "lte", 12]],
+        "body": "“Your recorded minutes are limited. I am not going to judge a short appearance like a full night of running the team. Let us talk about the role you want and the work that would make the staff comfortable giving you more time.”"
+      }
+    ],
+    "QB": [
+      {
+        "id": "turnovers",
+        "label": "Protect the football",
+        "when": [["last.giveaways", "gte", 2]],
+        "body": "“The latest game gives us a ball-security problem to address. Production cannot erase those giveaways. We will review the decisions behind them before we talk about expanding your freedom. What will you change when the next risky throw is there?”"
+      },
+      {
+        "id": "productive",
+        "label": "Commanding the offense",
+        "when": [
+          ["avg.qbYards", "gte", 275],
+          ["avg.qbTD", "gte", 2],
+          ["avg.giveaways", "lte", 1]
+        ],
+        "body": "“You are producing yards and touchdowns while limiting giveaways. That gives your case real weight. The next question is whether your preparation can keep the offense dependable when the easy answers disappear.”"
+      },
+      {
+        "id": "accuracy",
+        "label": "Finding the easy completion",
+        "when": [
+          ["avg.attempts", "gte", 20],
+          ["completionPercent", "lt", 55]
+        ],
+        "body": "“The completion rate over this stretch is below where we need it. The box score cannot tell us whose responsibility every miss was. Bring the film, explain the reads, and help us find completions we can repeat.”"
+      },
+      {
+        "id": "limited",
+        "label": "A smaller sample",
+        "when": [["avg.attempts", "lt", 10]],
+        "body": "“There are not many recorded pass attempts to judge. We will not turn a small sample into a verdict on your future. Make the preparation clear, and tell us what responsibility you are ready to earn.”"
+      }
+    ],
+    "WR": [
+      {
+        "id": "drops",
+        "label": "Finish the opportunity",
+        "when": [["last.drops", "gte", 2]],
+        "body": "“The latest game has multiple recorded drops. Getting an opportunity and finishing it are different jobs. We need to work through those catches before another conversation about targets. How will you make the next chance dependable?”"
+      },
+      {
+        "id": "productive",
+        "label": "Production earns attention",
+        "when": [
+          ["avg.receivingYards", "gte", 90],
+          ["avg.receptions", "gte", 4],
+          ["avg.drops", "lte", 1]
+        ],
+        "body": "“You have been turning targets into meaningful production. That is evidence the room can use. Now tell us how you will keep creating value when the coverage adjusts and somebody else has the better matchup.”"
+      },
+      {
+        "id": "quiet",
+        "label": "The targets are not turning into yards",
+        "when": [
+          ["avg.targets", "gte", 5],
+          ["avg.receivingYards", "lt", 35]
+        ],
+        "body": "“There have been targets, but not much yardage from them lately. The numbers do not tell us whether it is timing, spacing, coverage, or execution. Let us work through the film instead of blaming a teammate or promising a headline.”"
+      },
+      {
+        "id": "limited",
+        "label": "Not enough chances to judge",
+        "when": [["avg.targets", "lt", 3]],
+        "body": "“Few targets are recorded. That is not the same as dropping chances or failing an assignment. Let us talk about how you fit the passing plan before treating the receiving total as a verdict.”"
+      }
+    ],
+    "TE": [
+      {
+        "id": "drops",
+        "label": "Finish the opportunity",
+        "when": [["last.drops", "gte", 2]],
+        "body": "“The latest game has multiple recorded drops. Getting an opportunity and finishing it are different jobs. We need to work through those catches before another conversation about targets. How will you make the next chance dependable?”"
+      },
+      {
+        "id": "productive",
+        "label": "Production earns attention",
+        "when": [
+          ["avg.receivingYards", "gte", 65],
+          ["avg.receptions", "gte", 4],
+          ["avg.drops", "lte", 1]
+        ],
+        "body": "“You have been turning targets into meaningful production. That is evidence the room can use. Now tell us how you will keep creating value when the coverage adjusts and somebody else has the better matchup.”"
+      },
+      {
+        "id": "quiet",
+        "label": "The targets are not turning into yards",
+        "when": [
+          ["avg.targets", "gte", 5],
+          ["avg.receivingYards", "lt", 35]
+        ],
+        "body": "“There have been targets, but not much yardage from them lately. The numbers do not tell us whether it is timing, spacing, coverage, or execution. Let us work through the film instead of blaming a teammate or promising a headline.”"
+      },
+      {
+        "id": "limited",
+        "label": "Not enough chances to judge",
+        "when": [["avg.targets", "lt", 3]],
+        "body": "“Few targets are recorded, and catches do not measure all of a tight end’s work. We will not pretend the box score grades your blocking. Tell us what role you are doing and what receiving responsibility you want to earn.”"
+      }
+    ],
+    "RB": [
+      {
+        "id": "fumbles",
+        "label": "Keep the ball",
+        "when": [["last.fumbles", "gte", 1]],
+        "body": "“A lost fumble changes the conversation. We can see the yards too, but the next opportunity needs to finish with our ball. Bring your answer for protecting it through contact before asking for a larger workload.”"
+      },
+      {
+        "id": "productive",
+        "label": "Producing with your touches",
+        "when": [
+          ["avg.scrimmageYards", "gte", 100],
+          ["avg.fumbles", "lte", 0]
+        ],
+        "body": "“Your rushing and receiving yards have given us production without lost fumbles over this stretch. That supports your case for responsibility. How do you keep the same preparation when the workload or the defensive front changes?”"
+      },
+      {
+        "id": "stalled",
+        "label": "Making the carries count",
+        "when": [
+          ["avg.carries", "gte", 12],
+          ["yardsPerCarry", "lt", 3]
+        ],
+        "body": "“There have been carries, but the rushing average is low. The box score cannot separate your reads from the blocking in front of you. We need a film conversation about what can improve, not a public argument about who caused it.”"
+      },
+      {
+        "id": "limited",
+        "label": "Working with a small workload",
+        "when": [["avg.touches", "lt", 6]],
+        "body": "“The workload has been small. A quiet total is not enough to tell us how you handled every assignment. Explain the role you want, then show us the preparation that makes the next touch easier to trust.”"
+      }
+    ],
+    "S": [
+      {
+        "id": "missed-tackles",
+        "label": "Finish the tackle",
+        "when": [
+          ["last.defensiveSnaps", "gte", 1],
+          ["last.missedTackles", "gte", 3]
+        ],
+        "body": "“The latest record shows multiple missed tackles. Before we discuss a bigger role, we need to discuss finishing the opportunities you already had. Bring the film and a correction you can practice.”"
+      },
+      {
+        "id": "takeaways",
+        "label": "Changing possession",
+        "when": [["sum.takeaways", "gte", 2]],
+        "body": "“You have helped change possession more than once in the recent record. Those plays matter. Now we want to know how you keep the rest of your game dependable without feeling that every snap has to produce another takeaway.”"
+      },
+      {
+        "id": "active",
+        "label": "Involved in the defense",
+        "when": [
+          ["avg.tackles", "gte", 6],
+          ["avg.missedTackles", "lte", 1]
+        ],
+        "body": "“You are showing up in the tackle totals without many recorded misses. That gives us a starting point for a bigger responsibility conversation. The numbers are not a complete coverage grade; bring your assignments into the review too.”"
+      },
+      {
+        "id": "quiet",
+        "label": "Look beyond the box score",
+        "when": [
+          ["avg.defensiveSnaps", "gte", 30],
+          ["avg.tackles", "lt", 3],
+          ["sum.sacks", "lt", 1],
+          ["sum.takeaways", "lt", 1]
+        ],
+        "body": "“You have recorded plenty of snaps with a quiet box score. That could mean several things. We need the film before we turn it into a judgment about your effort or assignments. Explain where your impact should be showing up.”"
+      }
+    ],
+    "LB": [
+      {
+        "id": "missed-tackles",
+        "label": "Finish the tackle",
+        "when": [
+          ["last.defensiveSnaps", "gte", 1],
+          ["last.missedTackles", "gte", 3]
+        ],
+        "body": "“The latest record shows multiple missed tackles. Before we discuss a bigger role, we need to discuss finishing the opportunities you already had. Bring the film and a correction you can practice.”"
+      },
+      {
+        "id": "takeaways",
+        "label": "Changing possession",
+        "when": [["sum.takeaways", "gte", 2]],
+        "body": "“You have helped change possession more than once in the recent record. Those plays matter. Now we want to know how you keep the rest of your game dependable without feeling that every snap has to produce another takeaway.”"
+      },
+      {
+        "id": "active",
+        "label": "Involved in the defense",
+        "when": [
+          ["avg.tackles", "gte", 8],
+          ["avg.missedTackles", "lte", 1]
+        ],
+        "body": "“You are showing up in the tackle totals without many recorded misses. That gives us a starting point for a bigger responsibility conversation. The numbers are not a complete coverage grade; bring your assignments into the review too.”"
+      },
+      {
+        "id": "quiet",
+        "label": "Look beyond the box score",
+        "when": [
+          ["avg.defensiveSnaps", "gte", 30],
+          ["avg.tackles", "lt", 3],
+          ["sum.sacks", "lt", 1],
+          ["sum.takeaways", "lt", 1]
+        ],
+        "body": "“You have recorded plenty of snaps with a quiet box score. That could mean several things. We need the film before we turn it into a judgment about your effort or assignments. Explain where your impact should be showing up.”"
+      }
+    ],
+    "EDGE": [
+      {
+        "id": "missed-tackles",
+        "label": "Finish the tackle",
+        "when": [
+          ["last.defensiveSnaps", "gte", 1],
+          ["last.missedTackles", "gte", 3]
+        ],
+        "body": "“The latest record shows multiple missed tackles. Before we discuss a bigger role, we need to discuss finishing the opportunities you already had. Bring the film and a correction you can practice.”"
+      },
+      {
+        "id": "pressure",
+        "label": "Getting to the quarterback",
+        "when": [["avg.sacks", "gte", 1]],
+        "body": "“The sack production gives us evidence of your impact. It does not tell us every assignment you handled between those plays. Keep the rush plan sharp, and tell us how that production fits the complete role you want.”"
+      },
+      {
+        "id": "active",
+        "label": "Involved in the defense",
+        "when": [
+          ["avg.tackles", "gte", 6],
+          ["avg.missedTackles", "lte", 1]
+        ],
+        "body": "“You are showing up in the tackle totals without many recorded misses. That gives us a starting point for a bigger responsibility conversation. The numbers are not a complete coverage grade; bring your assignments into the review too.”"
+      },
+      {
+        "id": "quiet",
+        "label": "Look beyond the box score",
+        "when": [
+          ["avg.defensiveSnaps", "gte", 30],
+          ["avg.tackles", "lt", 3],
+          ["sum.sacks", "lt", 1],
+          ["sum.takeaways", "lt", 1]
+        ],
+        "body": "“You have recorded plenty of snaps with a quiet box score. That could mean several things. We need the film before we turn it into a judgment about your effort or assignments. Explain where your impact should be showing up.”"
+      }
+    ]
+  },
+  "steady": {
+    "id": "steady",
+    "label": "Building consistency",
+    "body": "“There is no single headline in this recent record that settles your role. We will keep looking for repeatable work. Tell us what you can build on and what you want to improve next.”"
+  },
+  "injured": {
+    "id": "recovery",
+    "label": "Recovery comes first",
+    "body": "“Your latest check-in says you missed the game through injury. We are not treating zero stats as a bad performance. This conversation is about recovery, staying connected to the team, and the role you return to.”"
+  },
+  "inactive": {
+    "id": "inactive",
+    "label": "Waiting for an opportunity",
+    "body": "“You were inactive in the latest game. A zero in the box score does not tell us what you would have done with an opportunity. Let us be clear about your preparation and the path back into the rotation.”"
+  }
+}

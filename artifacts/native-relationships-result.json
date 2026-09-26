@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "storage": "SQLite",
+  "role": "Starting point guard",
+  "minutes": 30,
+  "unlocks": [
+    65,
+    80
+  ],
+  "checkedAt": "2026-09-25T23:09:17.291Z"
+}

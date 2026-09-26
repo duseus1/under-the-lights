@@ -1,0 +1,20 @@
+[package]
+name = "under-the-lights"
+version = "0.8.0"
+description = "An offline football and basketball career companion"
+authors = ["Under the Lights"]
+edition = "2021"
+
+[lib]
+name = "under_the_lights_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.32", features = ["bundled"] }
+rfd = "0.15"

@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "storage": "SQLite",
+  "award": {
+    "id": "roy",
+    "name": "Rookie of the Year",
+    "points": 8,
+    "at": "2026-09-25T22:47:12.253Z"
+  },
+  "points": 11,
+  "record": {
+    "metric": "points",
+    "phase": "regular",
+    "scope": "game",
+    "value": 19,
+    "holder": "Native test league"
+  },
+  "tier": "standout",
+  "checkedAt": "2026-09-25T22:47:12.497Z"
+}

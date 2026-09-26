@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "storage": "SQLite",
+  "position": "RB",
+  "receivingYards": 65,
+  "upgradedAttribute": "Carrying",
+  "recoveryPoints": 10,
+  "theme": "cinematic",
+  "checkedAt": "2026-09-25T03:48:45.321Z"
+}

@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "nba2k": [
+    {
+      "metric": "points",
+      "phase": "regular",
+      "value": 100,
+      "holder": "Wilt Chamberlain",
+      "source": "https://api-hub.nba.com/news/most-points-scored-by-a-player-in-an-nba-game"
+    },
+    {
+      "metric": "assists",
+      "phase": "regular",
+      "value": 30,
+      "holder": "Scott Skiles",
+      "source": "https://www.nba.com/news/most-assists-by-a-player-in-a-single-nba-game"
+    },
+    {
+      "metric": "threePointersMade",
+      "phase": "regular",
+      "value": 14,
+      "holder": "Klay Thompson",
+      "source": "https://www.nba.com/news/most-3-pointers-made-single-game-nba-history"
+    }
+  ],
+  "madden": [
+    {
+      "metric": "sacks",
+      "phase": "regular",
+      "value": 7,
+      "holder": "Derrick Thomas",
+      "source": "https://www.profootballhof.com/players/derrick-thomas"
+    },
+    {
+      "metric": "passingYards",
+      "phase": "regular",
+      "value": 554,
+      "holder": "Norm Van Brocklin",
+      "source": "https://www.profootballhof.com/news/nfl-history-and-stats"
+    },
+    {
+      "metric": "receivingYards",
+      "phase": "regular",
+      "value": 336,
+      "holder": "Flipper Anderson",
+      "source": "https://www.profootballhof.com/football-history/history-index-records"
+    },
+    {
+      "metric": "rushingYards",
+      "phase": "regular",
+      "value": 296,
+      "holder": "Adrian Peterson",
+      "source": "https://www.profootballhof.com/news/single-game-rushing-records-by-team"
+    },
+    {
+      "metric": "defensiveInterceptions",
+      "phase": "regular",
+      "value": 4,
+      "holder": "Shared league record",
+      "source": "https://www.profootballhof.com/players/jack-butler"
+    }
+  ]
+}
