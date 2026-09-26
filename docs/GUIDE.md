@@ -21,7 +21,7 @@ A local-first Madden and NBA 2K career companion for Windows 11. React + TypeScr
 
 ## Install
 
-The built Windows x64 installer is in `releases/Under the Lights_1.0.0_x64-setup.exe`. It installs for the current user. The installer was built for Windows 11. A native NBA 2K point guard career was verified through creation, stats, upgrades, SQLite persistence, backup retention, and cinematic settings. No developer toolchain is needed to use the installed app.
+The built Windows x64 installer is in `releases/Under the Lights_1.1.0_x64-setup.exe`. It installs for the current user. The installer was built for Windows 11. A native NBA 2K point guard career was verified through creation, stats, upgrades, SQLite persistence, backup retention, and cinematic settings. No developer toolchain is needed to use the installed app.
 
 ## Run the playable preview
 

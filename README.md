@@ -10,7 +10,7 @@ Play your games in Madden Franchise or an editable NBA 2K league. Come back here
 
 **Two sports. Eight positions. Fifteen branching rookie stories. Twenty-four player builds. One career library.**
 
-[**Download for Windows 11 · v1.0.0**](releases/Under%20the%20Lights_1.0.0_x64-setup.exe) · [Getting started](#your-first-season-starts-here) · [Setup & game guide](docs/GUIDE.md)
+[**Download for Windows 11 · v1.1.0**](releases/Under%20the%20Lights_1.1.0_x64-setup.exe) · [Getting started](#your-first-season-starts-here) · [Setup & game guide](docs/GUIDE.md)
 
 ![Madden career hub showing the player, season stats, coach trust, and next career event](docs/screenshots/madden-career.png)
 
@@ -176,11 +176,11 @@ Run multiple careers without mixing up their histories. Try the other storyline.
 
 ## Get under the lights
 
-[**Download the Windows 11 x64 installer**](releases/Under%20the%20Lights_1.0.0_x64-setup.exe)
+[**Download the Windows 11 x64 installer**](releases/Under%20the%20Lights_1.1.0_x64-setup.exe)
 
 Install and launch. No developer tools are required to play. The installer is currently unsigned.
 
-**Current release: v1.0.0.** The playable career ends after the rookie season. Madden has seven positions and fourteen stories; NBA 2K currently has point guard and one story. Additional basketball positions, more storylines, and continued multi-season careers are future work.
+**Current release: v1.1.0.** The playable career ends after the rookie season. Madden has seven positions and fourteen stories; NBA 2K currently has point guard and one story. Additional basketball positions, more storylines, and continued multi-season careers are future work.
 
 ### Want to run or build it yourself?
 

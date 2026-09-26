@@ -247,7 +247,7 @@ export default function App() {
             <span>LOCAL SAVES. TOTAL CONTROL.</span>
           </div>
           <div className="version">
-            INDEPENDENT COMPANION <span>v1.0</span>
+            INDEPENDENT COMPANION <span>v1.1</span>
           </div>
         </div>
       </aside>
@@ -753,7 +753,7 @@ function SettingsView({
         <img src="/mark.svg" alt="" />
         <div>
           <h2>
-            Under the Lights <span className="tag">v1.0.0</span>
+            Under the Lights <span className="tag">v1.1.0</span>
           </h2>
           <p>
             An independent Madden and NBA 2K league companion. Not affiliated with EA, 2K, the NFL,
